@@ -38,18 +38,24 @@ def get_rooms():
     return jsonify(data), 200
 
 
-@app.route('/api/addition', methods=['GET'])
+@app.route('/api/addition', defaults={'reverse': None}, methods=['GET'])
+@app.route('/api/addition/<reverse>', methods=['GET'] )
 @name
-def addition():
-    args = map(float, list(request.args.values()))
+def addition(reverse):
+    args = list(map(float, list(request.args.values())))
+    if reverse:
+        args.reverse()
     _addition = sum(args)
     return jsonify(_addition), 200
 
 
-@app.route('/api/subtraction', methods=['GET'])
+@app.route('/api/subtraction', defaults={'reverse': None}, methods=['GET'])
+@app.route('/api/subtraction/<reverse>', methods=['GET'])
 @name
-def subtraction():
+def subtraction(reverse):
     args = list(map(float, list(request.args.values())))
+    if reverse:
+        args.reverse()
     _subtraction = ''
     for arg in args:
         if _subtraction:
@@ -59,10 +65,13 @@ def subtraction():
     return jsonify(_subtraction), 200
 
 
-@app.route('/api/multiplication', methods=['GET'])
+@app.route('/api/multiplication', defaults={'reverse': None}, methods=['GET'])
+@app.route('/api/multiplication/<reverse>', methods=['GET'])
 @name
-def multiplication():
-    args = map(float, list(request.args.values()))
+def multiplication(reverse):
+    args = list(map(float, list(request.args.values())))
+    if reverse:
+        args.reverse()
     _multiplication = ''
     for arg in args:
         if _multiplication:
@@ -72,10 +81,10 @@ def multiplication():
     return jsonify(_multiplication), 200
 
 
-@app.route('/api/division')
+@app.route('/api/division', defaults={'reverse': None}, methods=['GET'])
+@app.route('/api/division/<reverse>', methods=['GET'])
 @name
-def division():
-
+def division(reverse):
     args = list(map(float, list(request.args.values())))
     if 0 in args[1:]:
         return jsonify({'error': 'cant divide by zero'})
