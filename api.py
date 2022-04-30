@@ -86,6 +86,8 @@ def multiplication(reverse):
 @name
 def division(reverse):
     args = list(map(float, list(request.args.values())))
+    if reverse:
+        args.reverse()
     if 0 in args[1:]:
         return jsonify({'error': 'cant divide by zero'})
     else:

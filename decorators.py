@@ -1,6 +1,6 @@
 def name(func):
-    def _wrapper():
+    def _wrapper(*args, **kwargs):
         print(func.__name__)
-        return func()
+        return func(*args, **kwargs)
     _wrapper.__name__ = func.__name__
     return _wrapper
