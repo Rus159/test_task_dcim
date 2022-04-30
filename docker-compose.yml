@@ -1,0 +1,18 @@
+# Use postgres/example user/password credentials
+version: '3.1'
+
+services:
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_USER: flask
+      POSTGRES_DB: flask_db
+      PG_DATA: /root/pg_data
+  app:
+    build: .
+    restart: always
+    ports:
+      - "0.0.0.0:5005:5000"
